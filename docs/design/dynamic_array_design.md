@@ -9,70 +9,110 @@ This implementation focuses on understanding manual memory management, dynamic a
 The public API defines the set of operations that users of dynamic array can perform .It represents the external interface of the data structure while hiding the internal implementation details .The API is designed to perform efficient and safe operations for managing dynamically allocated contiguous storage.
 
 All Proposed API are:-
-DynamicArray() 
+
+(1)DynamicArray() 
+
 Parameters: None
+
 Return Type: None 
+
 Purpose:Initializes an empty Dynamic Array by allocating initial heap memory and setting the initial size and capacity values.
 
-~DynamicArray() 
+(2)~DynamicArray() 
+
 Parameters: None
+
 Return Type: None 
+
 Purpose:Releases all dynamically allocated memory owned by the Dynamic Array before the object is destroyed, preventing memory leaks.
 
-DynamicArray(const DynamicArray& other)
+(3)DynamicArray(const DynamicArray& other)
+
 Parameters: Reference to another DynamicArray object
+
 Return Type: None
+
 Purpose: Creates a new Dynamic Array object by performing a deep copy of another Dynamic Array. It allocates separate heap memory and copies all elements to avoid shared memory ownership.
 
-DynamicArray& operator=(const DynamicArray& other)
+(4)DynamicArray& operator=(const DynamicArray& other)
+
 Parameters: Reference to another DynamicArray object
+
 Return Type: DynamicArray&
+
 Purpose: Assigns one Dynamic Array object to another using deep copy. It releases previously owned memory and creates an independent copy of the source object.
 
+(5)append() 
 
-append() 
 Parameters: value
+
 Return Type: void
+
 Purpose:Inserts a new element at the end of the Dynamic Array. If the array has reached its current capacity, additional memory will be allocated before inserting the new element.
 
-insert() 
+(6)insert() 
+
 Parameters: index, value
+
 Return Type: void
+
 Purpose:Inserts a new element at the specified index. All elements from that position onward are shifted one position to the right to maintain contiguous storage.
 
-remove() 
-Parameters: index
-Return Type: void
-Purpose:Removes the element at the specified index. The remaining elements are shifted one position to the left to preserve the contiguous layout of the Dynamic Array.
+(7)remove() 
 
-get() 
 Parameters: index
+
+Return Type: void
+
+Purpose:Removes the element at the specified index. The 
+remaining elements are shifted one position to the left to preserve the contiguous layout of the Dynamic Array.
+
+(8)get() 
+
+Parameters: index
+
 Return Type: int (or the element type being stored)
+
 Purpose:Returns the element stored at the specified index.
 
-set() 
+(9)set() 
+
 Parameters: index, value
+
 Return Type: void
+
 Purpose:Updates the value stored at the specified index without changing the size or structure of the Dynamic Array.
 
-size() 
+(10)size() 
+
 Parameters: None
+
 Return Type: int
+
 Purpose:Returns the number of elements currently stored in the Dynamic Array.
 
-capacity() 
+(11)capacity() 
+
 Parameters: None
+
 Return Type: int
+
 Purpose:Returns the total number of elements that can be stored before the Dynamic Array needs to resize.
 
-isEmpty()
+(12)isEmpty()
+
 Parameters: None
+
 Return Type: bool
+
 Purpose: Returns true if the Dynamic Array contains no elements (size == 0); otherwise, it returns false.
 
-clear()
+(13)clear()
+
 Parameters: None
+
 Return Type: void
+
 Purpose: Removes all elements from the Dynamic Array by resetting its contents while keeping the object in a valid state for future insertions. The allocated memory may be retained based on the chosen implementation strategy.
 
 In order to conclude this we will using chart that explains in better pictorial and arranged manner 
@@ -94,15 +134,21 @@ Internal Representation:- It describes how dynamical array stores and manages it
 
 We maintain three private members:
 Data member: data
+
 Type: Pointer to the element type 
+
 Purpose: The data pointer stores the address of the first element of the dynamically allocated array. It provides access to the contiguous block of heap memory where all element are stored.
 
 Data member :size
+
 Type: Integer
+
 Purpose:The size variable keeps track of the number of elements currently stored in the Dynamic Array. It changes whenever elements are inserted or removed.
 
 Data Member: capacity
+
 Type: Integer
+
 Purpose:The capacity variable represents the total number of elements that the currently allocated memory block can hold before a resize operation becomes necessary.
 
 Memory map diagram 
@@ -114,6 +160,7 @@ Resize Strategy:
 When the Dynamic Array becomes full (size == capacity), a new memory block with larger capacity is allocated. Existing elements are copied into the new block, old memory is released, and the data pointer is updated to point to the new memory location. This allows the Dynamic Array to grow dynamically during runtime.
 
 As well as Rule of three also plays a crucial role here.
+
 Destructor
 The destructor is responsible for releasing the heap memory owned by the Dynamic Array when the object is destroyed. This prevents memory leaks.
 
@@ -130,60 +177,95 @@ Complexity Estimates
 
 
 Operation: append()
+
 Best Case: O(1)
+
 Average Case: O(1) amortized
+
 Worst case: O(n)
 Reason:Most append operations insert directly at the next available position, which takes O(1). When size becomes equal to capacity, a resize operation is triggered where a larger array is allocated and existing elements are copied, taking O(n). Since resizing occurs rarely due to capacity doubling, the average cost over multiple insertions becomes O(1) amortized.
 
 
 Operation: insert()
+
 Best Case: O(1)
+
 Average Case: O(n)
+
 Worst case: O(n)
+
 Reason:Insertion at the end without resizing is constant time. Otherwise, elements after the insertion point must be shifted.
 
 
 Operation: remove()
+
 Best Case: O(1)
+
 Average Case: O(n)
+
 Worst case: O(n)
+
 Reason:Removing the last element is constant time. Removing from the beginning or middle requires shifting subsequent elements.
 
 
 Operation: get()
+
 Best Case: O(1)
+
 Average Case: O(1) 
+
 Worst case: O(1)
+
 Reason:Direct indexing computes the memory location immediately without traversing the array.
 
 Operation: set()
+
 Best Case: O(1)
+
 Average Case: O(1) 
+
 Worst case: O(1)
+
 Reason:Directly updates the value at a given index.
 
 Operation: size()
+
 Best Case: O(1)
+
 Average Case: O(1) 
+
 Worst case: O(1)
+
 Reason:The current size is stored as a member variable.
 
 Operation: capacity()
+
 Best Case: O(1)
+
 Average Case: O(1) 
+
 Worst case: O(1)
+
 Reason:The current capacity is stored as a member variable.
 
 Operation: isEmpty()
+
 Best Case: O(1)
+
 Average Case: O(1)
+
 Worst Case: O(1)
+
 Reason: It only compares the stored size value with zero.
 
 Operation: clear()
+
 Best Case: O(1)
+
 Average Case: O(1)
+
 Worst Case: O(1)
+
 Reason: It resets the size counter while keeping allocated memory available for future use.
 
  In order to conclude all values of time complexity this chart has been shown below 
