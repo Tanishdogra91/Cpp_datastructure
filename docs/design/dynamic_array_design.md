@@ -153,7 +153,7 @@ Purpose:The capacity variable represents the total number of elements that the c
 
 Memory map diagram 
 
-![Memory Diagram](./memorymapdiagram.jpeg)
+![Memory Diagram](./memorymapdiagram.jpg)
 
 
 Resize Strategy:
