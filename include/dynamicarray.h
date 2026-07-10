@@ -30,6 +30,6 @@ public:
     void clear();
 };
 
-#include "../src/dynamicarray.tpp"
+#include "../src/dynamicarray.tpp" 
 
 #endif // DYNAMICARRAY_H
