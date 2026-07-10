@@ -7,7 +7,7 @@
 
 ---
 
-# Shift 01 (09:30 AM – 11:00 AM)
+# Shift 01 (09:45 AM – 11:30 AM)
 
 ## Goal
 
@@ -45,7 +45,7 @@ Good software design begins by selecting the simplest architecture capable of fu
 
 ---
 
-# Shift 02 (11:15 AM – 01:00 PM)
+# Shift 02 (11:45 AM – 01:15 PM)
 
 ## Goal
 
@@ -84,7 +84,7 @@ Unlike Dynamic Arrays, a Linked List consists of multiple independent heap alloc
 
 ---
 
-# Shift 03 (02:00 PM – 04:15 PM)
+# Shift 03 (02:00 PM – 04:00 PM)
 
 ## Goal
 
@@ -122,7 +122,7 @@ The overall complexity of many Linked List operations is determined by traversal
 
 ---
 
-# Shift 04 (5:30 PM – 06:30 PM)
+# Shift 04 (04:00 PM – 06:25 PM)
 
 ## Goal
 

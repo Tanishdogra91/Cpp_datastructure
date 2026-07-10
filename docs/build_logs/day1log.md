@@ -33,7 +33,7 @@ Successfully completed the first draft of the design document, including the pro
 
 **Date:** 06 July 2026
 
-**Duration:** 4:00 PM – 6:30 PM (2 Hours 30 Minutes)
+**Duration:** 4:00 PM – 6:25 PM (2 Hours 25 Minutes)
 
 ### Goal
 

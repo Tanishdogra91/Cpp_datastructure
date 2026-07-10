@@ -7,7 +7,7 @@
 
 ---
 
-# Shift 01 (09:30 AM – 11:30 AM)
+# Shift 01 (09:45 AM – 11:30 AM)
 
 ## Goal
 
@@ -47,7 +47,7 @@ The collision handling strategy influences the overall architecture of a HashMap
 
 ---
 
-# Shift 02 (11:45 AM – 01:45 PM)
+# Shift 02 (11:45 AM – 01:15 PM)
 
 ## Goal
 
@@ -105,7 +105,7 @@ Memory allocation and object construction are independent operations. Separating
 
 ---
 
-# Shift 03 (02:30 PM – 04:45 PM)
+# Shift 03 (02:00 PM – 04:00 PM)
 
 ## Goal
 
@@ -162,7 +162,7 @@ Hashing determines the candidate bucket, while equality comparison identifies th
 
 ---
 
-# Shift 04 (05:30 PM – 07:15 PM)
+# Shift 04 (04:00 PM – 06:25 PM)
 
 ## Goal
 
