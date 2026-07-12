@@ -42,7 +42,8 @@ public:
   bool search(const T &value) const;
 
   // Access
-  T get(int index) const;
+  T &get(int index);
+  const T &get(int index) const;
   void set(int index, const T &value);
 
   // Utility

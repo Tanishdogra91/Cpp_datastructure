@@ -197,8 +197,19 @@ template <typename T> bool LinkedList<T>::search(const T &value) const {
   return false;
 }
 
-// Get value at an index
-template <typename T> T LinkedList<T>::get(int index) const {
+// Get reference to value at an index
+template <typename T> T &LinkedList<T>::get(int index) {
+  if (index < 0 || index >= length) {
+    throw std::out_of_range("Index out of range");
+  }
+  Node<T> *current = head;
+  for (int i = 0; i < index; ++i) {
+    current = current->next;
+  }
+  return current->data;
+}
+
+template <typename T> const T &LinkedList<T>::get(int index) const {
   if (index < 0 || index >= length) {
     throw std::out_of_range("Index out of range");
   }

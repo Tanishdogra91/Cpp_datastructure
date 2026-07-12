@@ -79,7 +79,14 @@ template <typename T> void DynamicArray<T>::remove(int index) {
 }
 
 // get method to retrieve an element at a specific index
-template <typename T> T DynamicArray<T>::get(int index) const {
+template <typename T> T& DynamicArray<T>::get(int index) {
+  if (index < 0 || index >= currentSize) {
+    throw std::out_of_range("Index out of range");
+  }
+  return data[index];
+}
+
+template <typename T> const T& DynamicArray<T>::get(int index) const {
   if (index < 0 || index >= currentSize) {
     throw std::out_of_range("Index out of range");
   }
