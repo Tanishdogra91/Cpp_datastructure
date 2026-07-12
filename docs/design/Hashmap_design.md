@@ -66,6 +66,310 @@ public:
 };
 ```
 
+# HashMap Public Interface Documentation
+
+## Constructor
+
+### `HashMap();`
+
+### Return Type
+**None**
+
+A constructor never returns a value.
+
+### Parameters
+**None**
+
+### Explanation
+Creates an empty hash map by allocating the bucket array, initializing the initial capacity, and setting the number of stored key-value pairs to zero.
+
+### Time Complexity
+**O(n)** (where *n* is the initial number of buckets)
+
+### Why this design?
+The bucket array must exist before any key-value pairs can be inserted, providing the foundation for efficient hashing.
+
+---
+
+## Destructor
+
+### `~HashMap();`
+
+### Return Type
+**None**
+
+A destructor never returns a value.
+
+### Parameters
+**None**
+
+### Explanation
+Traverses every bucket in the hash map, deallocates all dynamically allocated nodes, and releases the bucket array before the object is destroyed.
+
+### Time Complexity
+**O(n)**
+
+### Why this design?
+Every node and the bucket array are stored in heap memory, so they must be explicitly deallocated to prevent memory leaks.
+
+---
+
+## Copy Constructor
+
+### `HashMap(const HashMap<Key, Value>& other);`
+
+### Return Type
+**None**
+
+A constructor never returns a value.
+
+### Parameters
+- **other** – The hash map to copy.
+
+### Explanation
+Creates a deep copy of another hash map by allocating a new bucket array and copying every key-value pair.
+
+### Time Complexity
+**O(n)**
+
+### Why this design?
+A deep copy ensures both hash maps have independent memory ownership and prevents double deletion.
+
+---
+
+## Copy Assignment Operator
+
+### `HashMap<Key, Value>& operator=(const HashMap<Key, Value>& other);`
+
+### Return Type
+**HashMap<Key, Value>&**
+
+Returns a reference to the current hash map.
+
+### Parameters
+- **other** – The hash map to copy from.
+
+### Explanation
+Clears the existing hash map, allocates new storage, and copies all key-value pairs from the source hash map. Handles self-assignment safely.
+
+### Time Complexity
+**O(n)**
+
+### Why this design?
+Returning a reference supports chained assignments while deep copying ensures independent ownership of dynamically allocated memory.
+
+---
+
+## Set
+
+### `void set(const Key& key, const Value& value);`
+
+### Return Type
+**void**
+
+Does not return a value.
+
+### Parameters
+- **key** – The key associated with the value.
+- **value** – The value to insert or update.
+
+### Explanation
+Inserts a new key-value pair into the hash map. If the key already exists, its associated value is updated instead of creating a duplicate entry.
+
+### Time Complexity
+- **Average:** **O(1)**
+- **Worst:** **O(n)**
+
+### Why this design?
+Updating existing keys prevents duplicates while hashing provides efficient average-case insertion.
+
+---
+
+## Get
+
+### `Value get(const Key& key) const;`
+
+### Return Type
+**Value**
+
+Returns the value associated with the specified key.
+
+### Parameters
+- **key** – The key to search for.
+
+### Explanation
+Searches the hash map for the given key and returns its corresponding value.
+
+### Time Complexity
+- **Average:** **O(1)**
+- **Worst:** **O(n)**
+
+### Why this design?
+Hashing enables fast lookup while returning the stored value directly.
+
+---
+
+## Remove
+
+### `void remove(const Key& key);`
+
+### Return Type
+**void**
+
+Does not return a value.
+
+### Parameters
+- **key** – The key to remove.
+
+### Explanation
+Removes the key-value pair associated with the specified key from the hash map and deallocates its memory.
+
+### Time Complexity
+- **Average:** **O(1)**
+- **Worst:** **O(n)**
+
+### Why this design?
+Removing unused entries frees memory while maintaining the integrity of the hash table.
+
+---
+
+## Contains
+
+### `bool contains(const Key& key) const;`
+
+### Return Type
+**bool**
+
+Returns `true` if the key exists; otherwise returns `false`.
+
+### Parameters
+- **key** – The key to search for.
+
+### Explanation
+Checks whether the specified key is present in the hash map.
+
+### Time Complexity
+- **Average:** **O(1)**
+- **Worst:** **O(n)**
+
+### Why this design?
+Allows efficient existence checks without retrieving the associated value.
+
+---
+
+## isEmpty
+
+### `bool isEmpty() const;`
+
+### Return Type
+**bool**
+
+Returns `true` if the hash map contains no elements; otherwise returns `false`.
+
+### Parameters
+**None**
+
+### Explanation
+Determines whether the hash map currently stores any key-value pairs.
+
+### Time Complexity
+**O(1)**
+
+### Why this design?
+The number of stored elements is maintained internally, allowing constant-time checks.
+
+---
+
+## Size
+
+### `int size() const;`
+
+### Return Type
+**int**
+
+Returns the number of key-value pairs currently stored in the hash map.
+
+### Parameters
+**None**
+
+### Explanation
+Returns the current number of elements in the hash map.
+
+### Time Complexity
+**O(1)**
+
+### Why this design?
+The element count is updated after every insertion and removal, making retrieval constant time.
+
+---
+
+## Load Factor
+
+### `float loadFactor() const;`
+
+### Return Type
+**float**
+
+Returns the current load factor of the hash map.
+
+### Parameters
+**None**
+
+### Explanation
+Calculates and returns the ratio of stored elements to the total number of buckets.
+
+### Time Complexity
+**O(1)**
+
+### Why this design?
+The load factor indicates how full the hash table is and helps determine when resizing may be necessary.
+
+---
+
+## Clear
+
+### `void clear();`
+
+### Return Type
+**void**
+
+Does not return a value.
+
+### Parameters
+**None**
+
+### Explanation
+Removes every key-value pair from the hash map, deallocates all dynamically allocated nodes, and resets the size to zero.
+
+### Time Complexity
+**O(n)**
+
+### Why this design?
+Clearing the hash map releases allocated memory while allowing the object to be reused.
+
+---
+
+## Print
+
+### `void print() const;`
+
+### Return Type
+**void**
+
+Does not return a value.
+
+### Parameters
+**None**
+
+### Explanation
+Displays all key-value pairs currently stored in the hash map, typically bucket by bucket.
+
+### Time Complexity
+**O(n)**
+
+### Why this design?
+Traversing every bucket ensures that every stored key-value pair is displayed exactly once.
+
 ---
 
 # Section 2 – Internal Representation
