@@ -7,4 +7,36 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(include)
 
-add_executable(datastruct_runner main.cpp)
+# Main executable
+add_executable(datastruct_runner
+    main.cpp
+)
+
+
+# GoogleTest
+enable_testing()
+
+find_package(GTest REQUIRED)
+
+add_executable(runTests
+    test/test_main.cpp
+    test/test_dynamicarray/dynamicarray_constructor.cpp
+    test/test_dynamicarray/dynamicarray_assignment.cpp
+    test/test_dynamicarray/dynamicarray_append.cpp
+    test/test_dynamicarray/dynamicarray_remove.cpp
+    test/test_dynamicarray/dynamicarray_insert.cpp
+    test/test_dynamicarray/dynamicarray_get.cpp
+    test/test_dynamicarray/dynamicarray_info.cpp
+    test/test_dynamicarray/dynamicarray_clear.cpp
+    test/test_dynamicarray/dynamicarray_destructor.cpp
+)
+
+target_include_directories(runTests PRIVATE include)
+
+target_link_libraries(runTests
+    GTest::gtest
+    GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(runTests)
