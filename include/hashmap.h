@@ -1,94 +1,95 @@
-#ifndef HASHMAP_H
-#define HASHMAP_H
+#pragma once
 
-#include <cstdlib>
+#include <dynamicarray.h>
 #include <iostream>
-#include <new>
-#include <cstring>
-#include <type_traits>
-#include <functional> // for std::hash
-#include "dynamicarray.h"
-#include "linkedlist.h"
-
-// Default Key Equal functor using operator==
-template <typename T> struct DefaultKeyEqual {
-  bool operator()(const T &a, const T &b) const { return a == b; }
-};
-
-// Default Hash functor using std::hash for maximum generality
-template <typename Key> struct DefaultHash {
-  std::size_t operator()(const Key &key) const {
-    return std::hash<Key>{}(key);
-  }
-};
-
-// Streamable helper to check and safely print values/keys to stream in print()
-namespace details {
-template <typename T, typename = void>
-struct is_streamable : std::false_type {};
+#include <linkedlist.h>
+#include <stdexcept>
 
 template <typename T>
-struct is_streamable<T, decltype(void(std::declval<std::ostream &>() << std::declval<const T &>()))>
-    : std::true_type {};
-
-template <typename T>
-typename std::enable_if<is_streamable<T>::value>::type
-printValue(std::ostream &os, const T &val) {
-  os << val;
-}
-
-template <typename T>
-typename std::enable_if<!is_streamable<T>::value>::type
-printValue(std::ostream &os, const T &) {
-  os << "<unstreamable>";
-}
-} // namespace details
-
-template <typename Key, typename Value> struct KeyValuePair {
-  Key key;
-  Value value;
-
-  KeyValuePair() = default;
-  KeyValuePair(const Key &k, const Value &v) : key(k), value(v) {}
-
-  bool operator==(const KeyValuePair &other) const {
-    return key == other.key;
-  }
+// hashes based on their memory address treating them as huge integers
+struct DefaultHash {
+  size_t operator()(const T &val) const;
+};
+// hashes integer using shifts and xor
+template <> struct DefaultHash<int> {
+  size_t operator()(int x) const;
+};
+// hashes using integer hash
+template <> struct DefaultHash<char> {
+  size_t operator()(char c) const;
+};
+// hashes using their bit representation
+template <> struct DefaultHash<double> {
+  size_t operator()(double c) const;
+};
+// hashes using their bit representation
+template <> struct DefaultHash<float> {
+  size_t operator()(float c) const;
+};
+// simplified FNV-1A
+template <> struct DefaultHash<std::string> {
+  size_t operator()(const std::string &s) const;
 };
 
-template <typename Key, typename Value, typename Hash = DefaultHash<Key>,
-          typename KeyEqual = DefaultKeyEqual<Key>>
+template <typename Key, typename Value, typename Hash = DefaultHash<Key>>
 class HashMap {
 private:
-  DynamicArray<LinkedList<KeyValuePair<Key, Value>>> buckets;
-  int bucketCount;
-  int elementCount;
-  float maxLoadFactor;
-  Hash hashFn;
-  KeyEqual equalFn;
-
-  int getBucketIndex(const Key &key) const;
-  void rehash(int newCapacity);
+  struct Entry {
+    Key key;
+    Value value;
+    Entry(const Key &k, const Value &v) : key(k), value(v) {}
+    bool operator==(const Entry &other) const { return key == other.key; }
+  };
+  DynamicArray<LinkedList<Entry>> buckets;
+  int elementcount, bucketcount;
+  double threshold;
+  Hash hashfun;
+  // to find what index to insert the key after hashing in
+  size_t BucketIndex(const Key &key) const;
+  // load factor calculator
+  double loadfactor() const;
+  // to perform deepcopy of another map
+  void deepcopy(const HashMap &map);
 
 public:
-  // Constructors & Destructor (Rule of Zero / Defaulted Rule of Three)
-  HashMap(int initialCapacity = 16);
-  ~HashMap() = default;
-  HashMap(const HashMap &other) = default;
-  HashMap &operator=(const HashMap &other) = default;
+  // constructors -
+  // default configurable constructor
+  HashMap(int inibucketcount = 16, double loadfactor = 0.75);
+  // copy constructor
+  HashMap(const HashMap &map);
+  // assignment operator (swap idiom)
+  HashMap &operator=(const HashMap &map);
 
-  // Core Operations
-  void insert(const Key &key, const Value &value);
-  bool get(const Key &key, Value &value) const;
-  bool remove(const Key &key);
-  bool contains(const Key &key) const;
-  int size() const;
-  bool isEmpty() const;
-  float loadFactor() const;
+  // methods-
+  // to append a key value pair in hashmap
+  void insert(const Key &k, const Value &v);
+  // to retrieve value from key
+  bool get(const Key &k, Value &v) const;
+  // to remove a key value pair
+  void remove(const Key &k);
+  // to delete all elements
   void clear();
+  // rehash to rehash all keys and insert into larger sized array
+  void rehash();
+  // to check if key exists in the list
+  bool exists(const Key &k) const;
+  // return number of elements
+  int size() const;
+  // return number of buckets
+  int bucketCount() const;
+  // return loadfactor
+  double loadFactor() const;
+  // empty or not
+  bool isEmpty() const;
+
+  // testing-
+
+  // to print bucket array and their no of elements
+  void debugPrint() const;
+  // to get the number of collisions to check hashfunction and chaining
+  int collisions() const;
+  // print all elements
   void print() const;
 };
 
-#include "../src/hashmap.tpp" 
-
-#endif // HASHMAP_H
+#include "../src/hashmap.tpp"

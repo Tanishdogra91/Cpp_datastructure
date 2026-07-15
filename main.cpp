@@ -160,10 +160,10 @@ int main() {
 
     assert(!map.isEmpty());
     assert(map.size() == 3);
-    assert(map.contains(1));
-    assert(map.contains(2));
-    assert(map.contains(3));
-    assert(!map.contains(4));
+    assert(map.exists(1));
+    assert(map.exists(2));
+    assert(map.exists(3));
+    assert(!map.exists(4));
 
     // Test Get
     std::string val;
@@ -185,13 +185,13 @@ int main() {
     assert(map.get(1, val) && val == "One"); // Ensure older keys are still accessible after rehash
 
     // Test Remove
-    assert(map.remove(2));
-    assert(!map.contains(2));
+    map.remove(2);
+    assert(!map.exists(2));
     assert(!map.get(2, val));
     assert(map.size() == 3);
 
     // Test Remove of non-existent key
-    assert(!map.remove(10));
+    map.remove(10);
     assert(map.size() == 3);
 
     std::cout << "All core operations with HashMap<int, std::string> passed successfully." << std::endl;
@@ -208,7 +208,7 @@ int main() {
     assert(doubleMap.get(3.14, c) && c == 'p');
     assert(doubleMap.get(2.718, c) && c == 'e');
     assert(doubleMap.get(0.0, c) && c == 'z');
-    assert(!doubleMap.contains(1.414));
+    assert(!doubleMap.exists(1.414));
 
     std::cout << "All operations with HashMap<double, char> passed successfully." << std::endl;
   }
@@ -223,7 +223,7 @@ int main() {
     int val;
     assert(ptrMap.get(&a, val) && val == 100);
     assert(ptrMap.get(&b, val) && val == 200);
-    assert(!ptrMap.contains(nullptr));
+    assert(!ptrMap.exists(nullptr));
 
     std::cout << "All operations with HashMap<int*, int> passed successfully." << std::endl;
   }
@@ -239,7 +239,7 @@ int main() {
     assert(ldMap.get(3.141592653589793238L, val) && val == 1);
     assert(ldMap.get(2.718281828459045235L, val) && val == 2);
     assert(ldMap.get(0.0L, val) && val == 0);
-    assert(!ldMap.contains(1.414213562373095048L));
+    assert(!ldMap.exists(1.414213562373095048L));
 
     std::cout << "All operations with HashMap<long double, int> passed successfully." << std::endl;
   }
@@ -251,7 +251,7 @@ int main() {
 
     std::string val;
     assert(npMap.get(nullptr, val) && val == "Null Pointer");
-    assert(npMap.contains(nullptr));
+    assert(npMap.exists(nullptr));
 
     std::cout << "All operations with HashMap<nullptr_t, std::string> passed successfully." << std::endl;
   }
@@ -275,7 +275,7 @@ int main() {
     assert(map.isEmpty());
     assert(map.size() == 0);
     assert(map.loadFactor() == 0.0f);
-    assert(!map.contains("one"));
+    assert(!map.exists("one"));
 
     std::cout << "loadFactor(), print(), and clear() tests passed successfully." << std::endl;
   }

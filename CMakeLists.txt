@@ -31,6 +31,21 @@ add_executable(runTests
     test/test_dynamicarray/isEmpty.cpp
     test/test_dynamicarray/clear.cpp
     test/test_dynamicarray/destructor.cpp
+    test/test_linkedlist/constructor.cpp
+    test/test_linkedlist/assignment.cpp
+    test/test_linkedlist/destructor.cpp
+    test/test_linkedlist/insertFront.cpp
+    test/test_linkedlist/insertBack.cpp
+    test/test_linkedlist/insertAt.cpp
+    test/test_linkedlist/deleteFront.cpp
+    test/test_linkedlist/deleteBack.cpp
+    test/test_linkedlist/deleteAt.cpp
+    test/test_linkedlist/search.cpp
+    test/test_linkedlist/get.cpp
+    test/test_linkedlist/set.cpp
+    test/test_linkedlist/size.cpp
+    test/test_linkedlist/isEmpty.cpp
+    test/test_linkedlist/clear.cpp
 )
 
 target_include_directories(runTests PRIVATE include)
